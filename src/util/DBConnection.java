@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class DBConnection {
 
     // ── Change these to match your MySQL setup ──────────────────────────
-    private static final String URL      = "jdbc:mysql://localhost:3306/cinem_booking";
+    private static final String URL      = "jdbc:mysql://localhost:3306/cinema_booking";
     private static final String USER     = "root";
     private static final String PASSWORD = "";
     // ────────────────────────────────────────────────────────────────────
