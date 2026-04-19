@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2026 at 08:30 PM
+-- Generation Time: Apr 19, 2026 at 09:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -174,7 +174,6 @@ INSERT INTO `movie` (`MovieID`, `Title`, `Description`, `Duration`, `Rating`, `G
 (2, 'The Dark Knight', 'Batman faces the Joker in a battle for Gotham City.', 152, '12A', 'Action', NULL, 1),
 (3, 'Interstellar', 'A team of explorers travel through a wormhole in space.', 169, '12A', 'Sci-Fi', NULL, 1),
 (4, 'Oppenheimer', 'The story of the development of the atomic bomb.', 180, 'G', 'Drama', NULL, 1),
-(5, 'The Dark Knight', 'Batman faces the Joker in a battle for Gotham City.', 152, '12A', 'Action', NULL, 0),
 (6, 'Project Hail Mary', 'Project Hail Mary is a science fiction novel (and 2026 film) by Andy Weir about Ryland Grace, a science teacher turned astronaut who wakes up alone on a spaceship with amnesia. He discovers he is on a desperate, last-chance mission to save Earth from an alien microorganism, \"Astrophage,\" that is consuming the sun\'s energy.', 156, 'PG', 'Sci-Fi, Action', NULL, 1);
 
 -- --------------------------------------------------------
