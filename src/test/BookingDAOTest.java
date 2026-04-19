@@ -4,7 +4,7 @@ import dao.BookingDAO;
 import exception.InvalidBookingException;
 import model.Booking;
 import org.junit.After;
-import org.junit.AfterClass;
+import org.testng.annotations.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
