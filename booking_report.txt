@@ -1,0 +1,22 @@
+========================================
+  CINEMA BOOKING SYSTEM - REPORT
+  Generated: 2026-04-19 18:34:05
+========================================
+
+BookingID  Customer             Movie                     Date         Time       Total (€)   
+------------------------------------------------------------------------------------------
+11         Olekasndr Storozhuk  Inception                 2026-03-05   11:00:00   14,00       
+10         Olekasndr Storozhuk  Oppenheimer               2026-03-08   22:00:00   58,00       
+9          Olekasndr Storozhuk  Inception                 2026-03-05   11:00:00   28,00       
+8          Olekasndr Storozhuk  The Dark Knight           2026-03-07   17:00:00   25,00       
+7          Olekasndr Storozhuk  Inception                 2026-03-05   11:00:00   14,00       
+6          Olekasndr Storozhuk  The Dark Knight           2026-03-07   17:00:00   25,00       
+5          Olekasndr Storozhuk  The Dark Knight           2026-03-07   17:00:00   37,50       
+4          Oleksandr Hrynkin    The Dark Knight           2026-03-07   17:00:00   25,00       
+3          Olekasndr Storozhuk  The Dark Knight           2026-03-07   17:00:00   50,00       
+2          Olekasndr Storozhuk  The Dark Knight           2026-03-07   17:00:00   25,00       
+1          Olekasndr Storozhuk  The Dark Knight           2026-03-07   17:00:00   25,00       
+
+Total bookings: 11
+Total revenue:  €326,50
+========================================
