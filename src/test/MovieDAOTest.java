@@ -16,7 +16,6 @@ import java.util.List;
 
 /**
  * Unit tests for MovieDAO using JUnit 4.
- *
  * Dr. Barron's Unit Testing slides:
  *  - @BeforeClass runs once before all tests (like @BeforeAll in JUnit 5)
  *  - @Before runs before each test (like @BeforeEach in JUnit 5)
