@@ -3,42 +3,42 @@ package test;
 import dao.BookingDAO;
 import exception.InvalidBookingException;
 import model.Booking;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for BookingDAO using JUnit 4.
+ * Unit tests for BookingDAO using JUnit 5.
  */
 public class BookingDAOTest {
 
     private static BookingDAO bookingDAO;
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeAll() {
         System.out.println("Setting up BookingDAO tests...");
         bookingDAO = new BookingDAO();
     }
 
-    @Before
+    @BeforeEach
     public void beforeEach() {
         System.out.println("Starting BookingDAO test...");
     }
 
-    @After
+    @AfterEach
     public void afterEach() {
         System.out.println("BookingDAO test finished.");
     }
 
-    @AfterClass
+    @AfterAll
     public static void afterAll() {
         System.out.println("BookingDAO tests complete.");
     }
@@ -46,8 +46,8 @@ public class BookingDAOTest {
     @Test
     public void testGetBookingsByCustomer_InvalidID_ReturnsEmptyList() {
         List<Booking> bookings = bookingDAO.getBookingsByCustomer(-999);
-        assertNotNull("Booking list should not be null", bookings);
-        assertTrue("Invalid customer ID should return an empty list", bookings.isEmpty());
+        assertNotNull(bookings, "Booking list should not be null");
+        assertTrue(bookings.isEmpty(), "Invalid customer ID should return an empty list");
     }
 
     @Test
@@ -56,8 +56,8 @@ public class BookingDAOTest {
             bookingDAO.cancelBooking(-999);
             fail("Should have thrown InvalidBookingException for invalid booking ID");
         } catch (InvalidBookingException e) {
-            assertTrue("Exception message should mention missing booking",
-                e.getMessage().toLowerCase().contains("not found"));
+            assertTrue(e.getMessage().toLowerCase().contains("not found"),
+                "Exception message should mention missing booking");
         } catch (SQLException e) {
             fail("Wrong exception type thrown: " + e.getClass().getName());
         }
@@ -69,8 +69,8 @@ public class BookingDAOTest {
             bookingDAO.createBooking(1, 1, Collections.emptyList(), 0.0);
             fail("Should have thrown InvalidBookingException for empty seat selection");
         } catch (InvalidBookingException e) {
-            assertTrue("Exception message should mention seat selection",
-                e.getMessage().toLowerCase().contains("seat"));
+            assertTrue(e.getMessage().toLowerCase().contains("seat"),
+                "Exception message should mention seat selection");
         } catch (SQLException e) {
             fail("Wrong exception type thrown: " + e.getClass().getName());
         }

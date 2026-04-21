@@ -57,4 +57,4 @@ public final class ErrorLogger {
             System.err.println("Failed to write to error.log: " + ioException.getMessage());
         }
     }
-}
+}     

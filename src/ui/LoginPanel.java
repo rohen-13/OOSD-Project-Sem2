@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class LoginPanel extends JFrame {
+    private static final Dimension FORM_WIDTH = new Dimension(340, 44);
+    private static final Dimension STATUS_SIZE = new Dimension(340, 20);
 
     private JTextField     emailField;
     private JPasswordField passwordField;
@@ -42,8 +44,10 @@ public class LoginPanel extends JFrame {
         JLabel titleLabel = new JLabel("Cinema Booking System");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setForeground(ModernUI.TEXT_PRIMARY);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel subtitleLabel = ModernUI.createMutedLabel("Sign in to manage bookings or reserve seats.");
+        subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         emailField    = new JTextField();
         passwordField = new JPasswordField();
@@ -51,6 +55,8 @@ public class LoginPanel extends JFrame {
         passwordField.setToolTipText("Enter your password");
         ModernUI.styleTextField(emailField);
         ModernUI.styleTextField(passwordField);
+        centerSized(emailField, FORM_WIDTH);
+        centerSized(passwordField, FORM_WIDTH);
 
         JPanel formPanel = new JPanel();
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
@@ -64,8 +70,9 @@ public class LoginPanel extends JFrame {
         statusLabel = new JLabel(" ");
         statusLabel.setForeground(ModernUI.DANGER);
         statusLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        statusLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        statusLabel.setPreferredSize(new Dimension(320, 32));
+        statusLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        centerSized(statusLabel, STATUS_SIZE);
 
         formPanel.add(styledLabel("Email"));
         formPanel.add(Box.createVerticalStrut(6));
@@ -80,6 +87,8 @@ public class LoginPanel extends JFrame {
 
         JPanel actionsPanel = new JPanel(new GridLayout(1, 2, 12, 0));
         actionsPanel.setOpaque(false);
+        actionsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerSized(actionsPanel, FORM_WIDTH);
         actionsPanel.add(loginButton);
         actionsPanel.add(registerButton);
         formPanel.add(actionsPanel);
@@ -87,8 +96,8 @@ public class LoginPanel extends JFrame {
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
         headerPanel.setOpaque(false);
-        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        subtitleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headerPanel.add(titleLabel);
         headerPanel.add(Box.createVerticalStrut(6));
         headerPanel.add(subtitleLabel);
@@ -96,6 +105,7 @@ public class LoginPanel extends JFrame {
         JLabel hintLabel = new JLabel("Admin demo: admin@cinema.com / admin123");
         hintLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         hintLabel.setForeground(ModernUI.TEXT_MUTED);
+        hintLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         mainPanel.add(headerPanel, BorderLayout.NORTH);
         mainPanel.add(formPanel, BorderLayout.CENTER);
@@ -195,12 +205,19 @@ public class LoginPanel extends JFrame {
         JLabel label = new JLabel(text);
         label.setForeground(ModernUI.TEXT_PRIMARY);
         label.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
         return label;
     }
 
     private void setStatus(String message) {
-        statusLabel.setText("<html><body style='width: 300px'>" + message + "</body></html>");
+        statusLabel.setText(message == null || message.isBlank() ? " " : message);
+    }
+
+    private void centerSized(JComponent component, Dimension size) {
+        component.setPreferredSize(size);
+        component.setMinimumSize(size);
+        component.setMaximumSize(size);
     }
 
     public static void main(String[] args) {

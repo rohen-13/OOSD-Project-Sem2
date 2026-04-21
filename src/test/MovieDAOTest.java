@@ -4,47 +4,40 @@ import dao.MovieDAO;
 import exception.InvalidInputException;
 import model.Movie;
 
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
 /**
- * Unit tests for MovieDAO using JUnit 4.
- * Dr. Barron's Unit Testing slides:
- *  - @BeforeClass runs once before all tests (like @BeforeAll in JUnit 5)
- *  - @Before runs before each test (like @BeforeEach in JUnit 5)
- *  - @After runs after each test
- *  - @AfterClass runs once after all tests
- *  - @Test marks each test method
- *  - assertEquals, assertNotNull, assertNull, assertFalse for assertions
+ * Unit tests for MovieDAO using JUnit 5.
  */
 public class MovieDAOTest {
 
     private static MovieDAO movieDAO;
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeAll() {
         System.out.println("Setting up database connection...");
         movieDAO = new MovieDAO();
     }
 
-    @Before
+    @BeforeEach
     public void beforeEach() {
         System.out.println("Starting next test...");
     }
 
-    @After
+    @AfterEach
     public void afterEach() {
         System.out.println("Test finished.");
     }
 
-    @AfterClass
+    @AfterAll
     public static void afterAll() {
         System.out.println("All tests complete.");
     }
@@ -54,19 +47,19 @@ public class MovieDAOTest {
     @Test
     public void testGetAllMovies_ReturnsNonNullList() {
         List<Movie> movies = movieDAO.getAllMovies();
-        assertNotNull("Movie list should not be null", movies);
+        assertNotNull(movies, "Movie list should not be null");
     }
 
     @Test
     public void testGetAllMovies_NotEmpty() {
         List<Movie> movies = movieDAO.getAllMovies();
-        assertFalse("Movie list should not be empty", movies.isEmpty());
+        assertFalse(movies.isEmpty(), "Movie list should not be empty");
     }
 
     @Test
     public void testGetMovieByID_InvalidID_ReturnsNull() {
         Movie movie = movieDAO.getMovieByID(-999);
-        assertNull("Non-existent ID should return null", movie);
+        assertNull(movie, "Non-existent ID should return null");
     }
 
     @Test
@@ -75,7 +68,7 @@ public class MovieDAOTest {
             movieDAO.addMovie("", "Description", 120, "12A", "Action");
             fail("Should have thrown InvalidInputException for empty title");
         } catch (InvalidInputException e) {
-            assertNotNull("Exception message should not be null", e.getMessage());
+            assertNotNull(e.getMessage(), "Exception message should not be null");
         } catch (Exception e) {
             fail("Wrong exception type thrown: " + e.getClass().getName());
         }

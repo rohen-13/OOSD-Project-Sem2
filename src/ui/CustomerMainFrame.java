@@ -57,7 +57,7 @@ public class CustomerMainFrame extends JFrame {
         setTitle("Cinema Booking - Welcome, " + loggedInCustomer.getName());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 650);
-        setLocationRelativeTo(null);
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
         getContentPane().setBackground(ModernUI.APP_BACKGROUND);
 
         JPanel topBar = new JPanel(new BorderLayout());

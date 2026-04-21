@@ -13,6 +13,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
@@ -27,6 +30,10 @@ import java.util.List;
  *  - JScrollPane : wraps table
  */
 public class ShowtimePanel extends JPanel {
+    private static final DateTimeFormatter DISPLAY_DATE_FORMAT =
+        DateTimeFormatter.ofPattern("dd-MM-uuuu");
+    private static final DateTimeFormatter STORAGE_DATE_FORMAT =
+        DateTimeFormatter.ISO_LOCAL_DATE;
 
     private ShowtimeDAO showtimeDAO = new ShowtimeDAO();
     private MovieDAO    movieDAO    = new MovieDAO();
@@ -113,9 +120,9 @@ public class ShowtimePanel extends JPanel {
         panel.add(hallCombo);
 
         // Date
-        panel.add(new JLabel("Date (YYYY-MM-DD):"));
+        panel.add(new JLabel("Date (DD-MM-YYYY):"));
         dateField = new JTextField();
-        dateField.setToolTipText("Example: 2026-05-20");
+        dateField.setToolTipText("Example: 20-05-2026");
         ModernUI.styleTextField(dateField);
         panel.add(dateField);
 
@@ -163,7 +170,7 @@ public class ShowtimePanel extends JPanel {
         try {
             Movie  movie  = (Movie) movieCombo.getSelectedItem();
             int    hallID = HALL_IDS[hallCombo.getSelectedIndex()];
-            String date   = dateField.getText().trim();
+            String date   = toStorageDate(dateField.getText().trim());
             String time   = timeField.getText().trim();
 
             // NumberFormatException caught if user types letters in price
@@ -173,12 +180,6 @@ public class ShowtimePanel extends JPanel {
                 JOptionPane.showMessageDialog(this,
                     "Please select a movie.", "No Movie", JOptionPane.WARNING_MESSAGE);
                 return;
-            }
-
-            // Validate date format
-            if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                throw new InvalidInputException(
-                    "Date must be in format YYYY-MM-DD (e.g. 2026-05-20). You entered: " + date);
             }
 
             // Validate time format
@@ -219,13 +220,10 @@ public class ShowtimePanel extends JPanel {
         try {
             Movie  movie  = (Movie) movieCombo.getSelectedItem();
             int    hallID = HALL_IDS[hallCombo.getSelectedIndex()];
-            String date   = dateField.getText().trim();
+            String date   = toStorageDate(dateField.getText().trim());
             String time   = timeField.getText().trim();
             double price  = Double.parseDouble(priceField.getText().trim());
 
-            if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                throw new InvalidInputException("Date must be in format YYYY-MM-DD.");
-            }
             if (!time.matches("\\d{2}:\\d{2}")) {
                 throw new InvalidInputException("Time must be in format HH:MM.");
             }
@@ -290,7 +288,7 @@ public class ShowtimePanel extends JPanel {
                 s.getShowtimeID(),
                 s.getMovieTitle(),
                 s.getHallName(),
-                s.getShowDate(),
+                toDisplayDate(s.getShowDate()),
                 s.getShowTime(),
                 String.format("%.2f", s.getTicketPrice()),
                 seatsLeft
@@ -343,6 +341,24 @@ public class ShowtimePanel extends JPanel {
         movieCombo.setSelectedIndex(0);
         hallCombo.setSelectedIndex(0);
         showtimeTable.clearSelection();
+    }
+
+    private String toStorageDate(String displayDate) throws InvalidInputException {
+        try {
+            LocalDate parsed = LocalDate.parse(displayDate, DISPLAY_DATE_FORMAT);
+            return parsed.format(STORAGE_DATE_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException(
+                "Date must be in format DD-MM-YYYY (e.g. 20-05-2026). You entered: " + displayDate);
+        }
+    }
+
+    private String toDisplayDate(String storageDate) {
+        try {
+            return LocalDate.parse(storageDate, STORAGE_DATE_FORMAT).format(DISPLAY_DATE_FORMAT);
+        } catch (DateTimeParseException e) {
+            return storageDate;
+        }
     }
 
 }
